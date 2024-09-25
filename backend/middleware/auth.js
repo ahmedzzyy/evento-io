@@ -1,4 +1,8 @@
 const jwt = require('jsonwebtoken');
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 export default function (req, res, next) {
   // Get token from header
