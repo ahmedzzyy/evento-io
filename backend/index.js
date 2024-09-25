@@ -2,7 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import dotenv from 'dotenv';
 import authroutes from './routes/auth.js';
-import eventRoutes from "../routes/events.js";
+import eventRoutes from "./routes/events.js";
 
 // Load environment variables from .env file
 dotenv.config();
