@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import authroutes from './routes/auth.js'
 
 // Load environment variables from .env file
 dotenv.config();
@@ -28,7 +29,7 @@ connectDB();
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', authroutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
