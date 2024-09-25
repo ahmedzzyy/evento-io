@@ -3,6 +3,7 @@ import { connect } from 'mongoose';
 import dotenv from 'dotenv';
 import authroutes from './routes/auth.js';
 import eventRoutes from "./routes/events.js";
+import registrationRoutes from "./routes/registrations.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authroutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/registrations', registrationRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
