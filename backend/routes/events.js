@@ -2,6 +2,7 @@ import { Router } from "express";
 import { check, validationResult } from "express-validator";
 import Event from "../models/Event.js";
 import auth from "../middleware/auth.js";
+import checkRole from "../middleware/role.js";
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.post(
     '/',
     [
         auth,  // Protect the route with auth middleware
+        checkRole(['organizer']), // Organizers allowed to post
         check('title', 'Title is required').notEmpty(),
         check('description', 'Description is required').notEmpty(),
         check('date', 'Please include a valid date').isDate(),
