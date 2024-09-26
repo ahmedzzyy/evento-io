@@ -3,6 +3,7 @@ import Registration from "../models/Registration";
 import auth from "../middleware/auth";
 import checkRole from "../middleware/role.js";
 import Event from "../models/Event.js";
+import { Parser } from "json2csv";
 
 const router = Router();
 
@@ -122,6 +123,48 @@ router.put('/:eventId/attendees/:userId', auth, async (req, res) => {
         await registration.save();
   
         res.json({ msg: `Attendee marked as ${status}` });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   GET /api/registrations/:eventId/export
+// @desc    Export attendee list as CSV
+// @access  Private (Organizer only)
+router.get('/:eventId/export', auth, async (req, res) => {
+    try {
+        // Find the event and check if the current user is the organizer
+        const event = await Event.findById(req.params.eventId);
+
+        if (!event) {
+            return res.status(404).json({ msg: 'Event not found' });
+        }
+
+        if (event.organizer.toString() !== req.user.id) {
+            return res.status(403).json({ msg: 'Unauthorized to manage this event' });
+        }
+
+        // Find all registrations for the event
+        const registrations = await Registration.find({ event: req.params.eventId })
+        .populate('attendee', 'name email');  // Populate attendee details
+
+        // Prepare data for CSV
+        const attendees = registrations.map(reg => ({
+            name: reg.attendee.name,
+            email: reg.attendee.email,
+            status: reg.status,
+            registeredAt: reg.registeredAt,
+        }));
+
+        // Convert JSON to CSV
+        const json2csv = new Parser();
+        const csv = json2csv.parse(attendees);
+
+        // Set CSV headers for the response
+        res.header('Content-Type', 'text/csv');
+        res.attachment(`${event.title}-attendees.csv`);
+        res.send(csv);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');
