@@ -80,18 +80,36 @@ router.get('/:id', async (req, res) => {
 // @desc    Search events by title or description
 // @access  Public
 router.get('/search', async (req, res) => {
-    const { keyword } = req.query;
+    const { keyword, page = 1, limit=10 } = req.query;
   
     try {
+        // Calculate the number of itsms to skip for the upcoming page
+        const skip = (page - 1) * limit;
+
         // Find events where the title or description matches the keyword
         const events = await Event.find({
             $or: [
             { title: { $regex: keyword, $options: 'i' } },  // Case-insensitive search
             { description: { $regex: keyword, $options: 'i' } },
             ],
+        })
+        .skip(skip)
+        .limit(Number(limit));
+
+        // Get total number of events matching the keyword
+        const total = await Event.countDocuments({
+            $or: [
+                { title: { $regex: keyword, $options: 'i' } },
+                { description: { $regex: keyword, $options: 'i' } },
+            ],
         });
   
-        res.json(events);
+        res.json({
+            events,
+            currentPage: page,
+            totalPages: Math.ceil(total / limit),
+            totalEvents: total,
+        });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');
