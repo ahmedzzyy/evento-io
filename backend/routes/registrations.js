@@ -84,4 +84,48 @@ router.get(
         }
 });
 
+// @route   PUT /api/registrations/:eventId/attendees/:userId
+// @desc    Mark an attendee as present or absent
+// @access  Private (Organizer only)
+router.put('/:eventId/attendees/:userId', auth, async (req, res) => {
+    const { status } = req.body;
+
+    // Only allow "present" or "absent" as valid statuses
+    if (!['present', 'absent'].includes(status)) {
+        return res.status(400).json({ msg: 'Invalid attendance status' });
+    }
+
+    try {
+        // Find the event and check if the current user is the organizer
+        const event = await Event.findById(req.params.eventId);
+  
+        if (!event) {
+            return res.status(404).json({ msg: 'Event not found' });
+        }
+
+        if (event.organizer.toString() !== req.user.id) {
+            return res.status(403).json({ msg: 'Unauthorized to manage this event' });
+        }
+  
+        // Find the registration for this event and user
+        const registration = await Registration.findOne({
+            event: req.params.eventId,
+            attendee: req.params.userId,
+        });
+  
+        if (!registration) {
+            return res.status(404).json({ msg: 'Registration not found' });
+        }
+  
+        // Update the status
+        registration.status = status;
+        await registration.save();
+  
+        res.json({ msg: `Attendee marked as ${status}` });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+
 export default router;
