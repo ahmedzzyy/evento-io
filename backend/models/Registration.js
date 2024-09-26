@@ -14,7 +14,12 @@ const RegistrationSchema = new Schema({
     registeredAt: {
         type: Date,
         default: Date.now,  // Automatically set the registration time
-    }
+    },
+    status: {
+        type: String,
+        enum: ['Registered', 'Present', 'Absent'],
+        default: 'Registered',  // Default to registered
+    },
 });
 
 export default model('Registration', RegistrationSchema);
