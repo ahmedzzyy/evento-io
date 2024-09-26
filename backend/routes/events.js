@@ -97,7 +97,42 @@ router.get('/search', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+// @route   GET /api/events/filter
+// @desc    Filter events by date, location, or type
+// @access  Public
+router.get('/filter', async (req, res) => {
+    const { dateFrom, dateTo, location, type } = req.query;
   
+    try {
+        // Create a filter object
+        const filters = {};
+  
+        // Filter by date range
+        if (dateFrom || dateTo) {
+            filters.date = {};
+            if (dateFrom) filters.date.$gte = new Date(dateFrom);
+            if (dateTo) filters.date.$lte = new Date(dateTo);
+        }
+  
+        // Filter by location
+        if (location) {
+            filters.location = { $regex: location, $options: 'i' };  // Case-insensitive
+        }
+  
+        // Filter by type
+        if (type) {
+            filters.type = type;
+        }
+  
+        // Find events that match the filters
+        const events = await Event.find(filters);
+        res.json(events);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});  
       
 // @route   PUT /api/events/:id
 // @desc    Update an event
