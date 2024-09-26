@@ -75,6 +75,29 @@ router.get('/:id', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+// @route   GET /api/events/search
+// @desc    Search events by title or description
+// @access  Public
+router.get('/search', async (req, res) => {
+    const { keyword } = req.query;
+  
+    try {
+        // Find events where the title or description matches the keyword
+        const events = await Event.find({
+            $or: [
+            { title: { $regex: keyword, $options: 'i' } },  // Case-insensitive search
+            { description: { $regex: keyword, $options: 'i' } },
+            ],
+        });
+  
+        res.json(events);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+  
       
 // @route   PUT /api/events/:id
 // @desc    Update an event
