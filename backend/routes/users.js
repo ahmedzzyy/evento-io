@@ -108,3 +108,5 @@ router.get('/me/upcoming-events', auth, async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+export default router;
