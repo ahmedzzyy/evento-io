@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { loginUser } from "../../services/authService";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -9,26 +10,12 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            const response = await loginUser(data);
 
-            const response = await res.json();
+            localStorage.setItem('token', response.token);
 
-            if (res.ok) {
-                // Store the JWT token in localStorage
-                localStorage.setItem('token', response.token);
-
-                // Redirect to homepage after successful login
-                router.push('/');
-            } else {
-                // If login fails, display an error message
-                setErrorMsg(response.msg || 'Login failed');
-            }
+            // Redirect to homepage after successful login
+            router.push('/');
         } catch (error) {
             console.error('Error logging in:', error);
             setErrorMsg('An unexpected error occurred. Please try again.');
