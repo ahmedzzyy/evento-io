@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { signupUser } from "../../services/authService";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -9,23 +10,10 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      await signupUser(data);
 
-      const response = await res.json();
-
-      if (res.ok) {
-        // Redirect to login after successful signup
-        router.push('/auth/login');
-      } else {
-        // Display error if signup fails
-        setErrorMsg(response.msg || 'Signup failed');
-      }
+      router.push('/auth/login');
+      
     } catch (error) {
       console.error('Error signing up:', error);
       setErrorMsg('An unexpected error occurred. Please try again.');
