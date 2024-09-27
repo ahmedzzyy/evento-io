@@ -4,7 +4,7 @@ const BASE_URL = '/api/events';
 export const createEvent = async (eventData) => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
-    const res = await fetch('/api/events', {
+    const res = await fetch(BASE_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const filterEvents = async ({ dateFrom, dateTo, location, type }) => {
 export const updateEvent = async (eventId, updatedEventData) => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
-    const res = await fetch(`/api/events/${eventId}`, {
+    const res = await fetch(`${BASE_URL}/${eventId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export const updateEvent = async (eventId, updatedEventData) => {
 export const deleteEvent = async (eventId) => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
-    const res = await fetch(`/api/events/${eventId}`, {
+    const res = await fetch(`${BASE_URL}/${eventId}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`  // Include the token in Authorization header
