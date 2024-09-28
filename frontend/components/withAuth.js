@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { fetchUserProfile } from "../services/userService";
 
-const withAuth = (WrappedComponent) => {
+const withAuth = (WrappedComponent, requiredRole = null) => {
     return (props) => {
         const router = useRouter();
 
@@ -14,6 +14,9 @@ const withAuth = (WrappedComponent) => {
                 if (!user || !user.id) {
                     // Redirect to Login
                     router.push("/auth/login");
+                } else if (requiredRole && user.role !== requiredRole) {
+                    // Redirected to homepage if unauthorized
+                    router.push('/');
                 }
             }
 
