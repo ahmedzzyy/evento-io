@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import jwt_decode from 'jwt-decode';
+import Link from "next/link";
 
 const NavBar = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,7 +37,7 @@ const NavBar = () => {
         <nav>
             <ul>
                 <li>
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                 </li>
 
                 {isAuthenticated ? (
@@ -44,22 +45,22 @@ const NavBar = () => {
                         {userRole === 'organizer' ? (
                             <>
                                 <li>
-                                    <a href="/events/manage">Manage My Events</a>
+                                    <Link href="/events/manage">Manage My Events</Link>
                                 </li>
                                 <li>
-                                    <a href="/events/create">Create New Event</a>
+                                    <Link href="/events/create">Create New Event</Link>
                                 </li>
                                 <li>
-                                    <a href="/events/attendees">View Attendees</a>
+                                    <Link href="/events/attendees">View Attendees</Link>
                                 </li>
                             </>
                         ) : (
                             <>
                                 <li>
-                                    <a href="/profile/registered">My Registered Events</a>
+                                    <Link href="/profile/registered">My Registered Events</Link>
                                 </li>
                                 <li>
-                                    <a href="/profile/past">Past Events</a>
+                                    <Link href="/profile/past">Past Events</Link>
                                 </li>
                             </>
                         )}
@@ -70,10 +71,10 @@ const NavBar = () => {
                 ) : (
                     <>
                         <li>
-                            <a href="/auth/login">Login</a>
+                            <Link href="/auth/login">Login</Link>
                         </li>
                         <li>
-                            <a href="/auth/signup">Sign Up</a>
+                            <Link href="/auth/signup">Sign Up</Link>
                         </li>
                     </>
                 )}
