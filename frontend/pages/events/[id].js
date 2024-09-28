@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { fetchEventById } from "../../services/eventService";
+import { fetchEventById } from "@/services/eventService";
 import Link from "next/link";
 
 const EventDetail = () => {

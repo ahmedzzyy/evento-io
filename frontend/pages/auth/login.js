@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { loginUser } from "../../services/authService";
+import { loginUser } from "@/services/authService";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();

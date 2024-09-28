@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { fetchEventById, updateEvent } from "../../../services/eventService";
-import withAuth from "../../../components/withAuth";
+import { fetchEventById, updateEvent } from "@/services/eventService";
+import withAuth from "@/components/withAuth";
 
 const EditEvent = () => {
     const router = useRouter();

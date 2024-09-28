@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { createEvent } from "../../services/eventService";
+import { createEvent } from "@/services/eventService";
 import withAuth from "../../components/withAuth";
 
 const CreateEvent = () => {

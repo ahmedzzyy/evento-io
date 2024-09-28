@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUserProfile, fetchRegisteredEvents, fetchPastEvents, fetchUpcomingEvents } from "../../services/userService";
+import { fetchUserProfile, fetchRegisteredEvents, fetchPastEvents, fetchUpcomingEvents } from "@/services/eventService";
 import EventCard from "../../components/EventCard";
 
 const UserProfile = () => {
