@@ -42,7 +42,7 @@ const UserProfile = () => {
 
     return (
         <div className="user-profile">
-            <h1>{user?.name}'s Profile</h1>
+            <h1>{user?.name}{"'"}s Profile</h1>
             <p>Email: {user?.email}</p>
 
             {/* View options */}
