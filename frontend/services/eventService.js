@@ -21,6 +21,25 @@ export const createEvent = async (eventData) => {
     return res.json();  // Return the created event data
 };
 
+// Fetch all events by a particular organizer (user itself)
+export const fetchEventByOrganizer = async () => {
+    const token = localStorage.getItem('token');
+
+    const res = await fetch(`${BASE_URL}/organizer`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`  // Include the token in Authorization header
+        },
+    });
+    
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to create event');
+    }
+
+    return res.json();  // Return the events data
+}
 
 // Fetch all events (unfiltered)
 export const fetchAllEvents = async () => {
