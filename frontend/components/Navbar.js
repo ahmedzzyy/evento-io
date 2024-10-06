@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import jwt_decode from 'jwt-decode';
 import Link from "next/link";
+import styles from "@/styles/navbar.module.css";
 
 const NavBar = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,51 +35,34 @@ const NavBar = () => {
     };
 
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link href="/">Home</Link>
-                </li>
-
+        <nav className={styles.navbar}>
+            <Link href="/" className={styles.navbarBrand}>
+                Evento
+            </Link>
+            <div className={styles.navbarLinks}>
                 {isAuthenticated ? (
                     <>
                         {userRole === 'organizer' ? (
                             <>
-                                <li>
-                                    <Link href="/events/manage">Manage My Events</Link>
-                                </li>
-                                <li>
-                                    <Link href="/events/create">Create New Event</Link>
-                                </li>
-                                <li>
-                                    <Link href="/events/attendees">View Attendees</Link>
-                                </li>
+                                <Link className={styles.navbarLink} href="/events/manage">Manage My Events</Link>
+                                <Link className={styles.navbarLink} href="/events/create">Create New Event</Link>
+                                <Link className={styles.navbarLink} href="/events/attendees">View Attendees</Link>
                             </>
                         ) : (
                             <>
-                                <li>
-                                    <Link href="/profile/registered">My Registered Events</Link>
-                                </li>
-                                <li>
-                                    <Link href="/profile/past">Past Events</Link>
-                                </li>
+                                <Link className={styles.navbarLink} href="/profile/registered">My Registered Events</Link>
+                                <Link className={styles.navbarLink} href="/profile/past">Past Events</Link>
                             </>
                         )}
-                        <li>
-                            <button onClick={handleLogout}>Logout</button>
-                        </li>
+                        <button onClick={handleLogout}>Logout</button>
                     </>
                 ) : (
                     <>
-                        <li>
-                            <Link href="/auth/login">Login</Link>
-                        </li>
-                        <li>
-                            <Link href="/auth/signup">Sign Up</Link>
-                        </li>
+                        <Link className={styles.navbarLink} href="/auth/login">Login</Link>
+                        <Link className={styles.navbarLink} href="/auth/signup">Sign Up</Link>
                     </>
                 )}
-            </ul>
+            </div>
         </nav>
     );
 };
