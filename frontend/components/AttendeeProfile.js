@@ -58,11 +58,11 @@ const AttendeeProfile = () => {
                 <>
                     <h2>Upcoming Events</h2>
                     {upcomingEvents.length > 0 ? (
-                        <ul>
+                        <>
                             {upcomingEvents.map((event) => (
                                 <EventCard key={event._id} event={event} />
                             ))}
-                        </ul>
+                        </>
                     ) : (
                         <p>No upcoming events.</p>
                     )}
