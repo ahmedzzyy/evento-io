@@ -44,6 +44,33 @@ router.post(
         }
     }
 );
+
+// @route   GET /api/events/organizer
+// @desc    Get events created by the organizer
+// @access  Private (Only authenticated users can create events)
+router.get(
+    '/organizer',
+    [
+        auth,  // Protect the route with auth middleware
+        checkRole(['organizer']), // Organizers allowed to post
+    ],
+    async (req, res) => {
+        try {
+            const organizerID = req.user.id;
+            // Find events where the organizer matches the authenticated user
+            const events = await Event.find({ organizer: organizerID });
+
+            if (!events) {
+                return res.status(404).json({ message: "No Events found for this organizer." });
+            }
+
+            res.json(events);
+        } catch (err) {
+            console.error(err.message);
+            res.status(500).send("Server Error");
+        }
+    }
+)
       
 // @route   GET /api/events
 // @desc    Get all events
