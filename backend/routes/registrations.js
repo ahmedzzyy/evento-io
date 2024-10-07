@@ -1,6 +1,6 @@
 import { Router } from "express";
-import Registration from "../models/Registration";
-import auth from "../middleware/auth";
+import Registration from "../models/Registration.js";
+import auth from "../middleware/auth.js";
 import checkRole from "../middleware/role.js";
 import Event from "../models/Event.js";
 import { Parser } from "json2csv";
