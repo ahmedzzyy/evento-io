@@ -58,24 +58,6 @@ router.get('/', async (_req, res) => {
     }
 });
 
-// @route   GET /api/events/:id
-// @desc    Get an event by ID
-// @access  Public
-router.get('/:id', async (req, res) => {
-    try {
-        const event = await Event.findById(req.params.id).populate('organizer', 'username email');
-    
-        if (!event) {
-            return res.status(404).json({ msg: 'Event not found' });
-        }
-
-        res.json(event);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Server error');
-    }
-});
-
 // @route   GET /api/events/search
 // @desc    Search events by title or description
 // @access  Public
@@ -110,6 +92,24 @@ router.get('/search', async (req, res) => {
             totalPages: Math.ceil(total / limit),
             totalEvents: total,
         });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server error');
+    }
+});
+
+// @route   GET /api/events/:id
+// @desc    Get an event by ID
+// @access  Public
+router.get('/:id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id).populate('organizer', 'username email');
+    
+        if (!event) {
+            return res.status(404).json({ msg: 'Event not found' });
+        }
+
+        res.json(event);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');
