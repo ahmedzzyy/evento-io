@@ -1,5 +1,16 @@
 /* styles/globals.css */
 
+:root {
+    --background-dark: #121212;
+    --form-background: #2c2c2c;
+    --input-background: #3a3a3a;
+    --border-color: #555;
+    --primary-color: #4CAF50;
+    --primary-hover: #45a049;
+    --text-light: #e0e0e0;
+    --error-color: #ff4d4d;
+}
+
 /* Reset default styles */
 * {
     margin: 0;

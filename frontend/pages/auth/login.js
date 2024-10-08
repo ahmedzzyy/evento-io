@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { loginUser } from "@/services/authService";
+import styles from "@/styles/Login.module.css";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -23,32 +24,36 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label>Email:</label>
+        <div className={styles.loginContainer}>
+            <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+                <h2 className={styles.loginTitle}>Login</h2>
+                <div className={styles.formGroup}>
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="email"
+                        name="email"
                         {...register('email', { required: 'Email is required' })}
                         placeholder="Enter your email"
+                        className={styles.inputField}
                     />
-                    {errors.email && <p>{errors.email.message}</p>}
+                    {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
                 </div>
 
-                <div>
-                    <label>Password:</label>
+                <div className={styles.formGroup}>
+                    <label htmlFor="password">Password:</label>
                     <input
                         type="password"
+                        name="password"
                         {...register('password', { required: 'Password is required' })}
                         placeholder="Enter your password"
+                        className={styles.inputField}
                     />
-                    {errors.password && <p>{errors.password.message}</p>}
+                    {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit" className={styles.submitBtn}>Login</button>
 
-                {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+                {errorMsg && <p className={styles.errorMessage}>{errorMsg}</p>}
             </form>
         </div>
     );
