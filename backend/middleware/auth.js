@@ -6,7 +6,15 @@ dotenv.config();
 
 export default function (req, res, next) {
   // Get token from header
-  const token = req.header('x-auth-token');
+  const authHeader = req.header('Authorization');
+
+  // Check if Authorization header exists and starts with "Bearer"
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ msg: 'No token, authorization denied' });
+  }
+
+  // Extract token from Bearer header
+  const token = authHeader.split(' ')[1];
 
   // Check if no token
   if (!token) {
