@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchEventById } from "@/services/eventService";
-import Link from "next/link";
+import { createRegistration } from "@/services/registrationService";
+import styles from "@/styles/EventDetail.module.css";
 
 const EventDetail = () => {
     const router = useRouter();
@@ -10,6 +11,7 @@ const EventDetail = () => {
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isRegistered, setRegistered] = useState(false);
 
     useEffect(() => {
         if (id) {
@@ -28,6 +30,24 @@ const EventDetail = () => {
         }
     }, [id]);
 
+    const handleRegister = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert("Please log in to register for the event.");
+            router.push('/auth/login');  // Redirect to login page if not logged in
+            return;
+        }
+
+        try {
+            await createRegistration(id);
+            alert("Successfully registered for the event!");
+            setRegistered(true);
+        } catch (err) {
+            setError("Failed to Register for event");
+        }
+    }
+
     if (loading) {
         return <div>Loading Event Details...</div>;
     }
@@ -41,17 +61,24 @@ const EventDetail = () => {
     }
 
     return (
-        <div className="event-detail">
-            <h1>{event.title}</h1>
-            <p><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
-            <p><strong>Location:</strong> {event.location}</p>
-            <p><strong>Description:</strong> {event.description}</p>
-            <p><strong>Organizer:</strong> {event.organizer.name}</p>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.eventTitle}>{event.title}</h1>
+                <p className={styles.date}>Date: {new Date(event.date).toLocaleDateString()}</p>
+            </div>
 
-            {/* Back to all events link */}
-            <Link href="/events">
-                <a>Back to All Events</a>
-            </Link>
+            <div className={styles.details}>
+                <h2>Details</h2>
+                <p className={styles.description}>{event.description}</p>
+            </div>
+
+            <div className={styles.actions}>
+                {!isRegistered ? (
+                    <button onClick={handleRegister} className={styles.registerButton}>Register</button>
+                ) : (
+                    <p>You are already registered for this event.</p>
+                )}
+            </div>
         </div>
     );
 }

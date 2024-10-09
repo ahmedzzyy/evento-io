@@ -1,0 +1,56 @@
+/* eventDetail.module.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.eventTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f0f0f0;
+}
+
+.date {
+    font-size: 1.2rem;
+    color: #bbb;
+}
+
+.details {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.registerButton {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.registerButton:hover {
+    background-color: #45a049;
+}
