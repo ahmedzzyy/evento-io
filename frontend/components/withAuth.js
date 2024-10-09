@@ -11,7 +11,7 @@ const withAuth = (WrappedComponent, requiredRole = null) => {
                 const user = await fetchUserProfile();
 
                 // Check if user exists and has the necessary property like 'id'
-                if (!user || !user.id) {
+                if (!user || !user._id) {
                     // Redirect to Login
                     router.push("/auth/login");
                 } else if (requiredRole && user.role !== requiredRole) {
