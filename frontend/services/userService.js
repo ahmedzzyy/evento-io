@@ -1,4 +1,4 @@
-const BASE_URL = '/api/users';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/users`;
 
 // Fetch user's profile (Authenticated users only)
 export const fetchUserProfile = async () => {

@@ -1,4 +1,4 @@
-const BASE_URL = '/api/auth';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/auth`;
 
 // Signup a new user
 export const signupUser = async (userData) => {

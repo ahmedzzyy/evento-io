@@ -1,4 +1,4 @@
-const BASE_URL = '/api/events';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/events`;
 
 // Create a new event (Authenticated users only)
 export const createEvent = async (eventData) => {

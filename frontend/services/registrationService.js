@@ -1,4 +1,4 @@
-const BASE_URL = '/api/registrations';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/registrations`;
 
 // Register for an event (Authenticated users only)
 export const createRegistration = async (eventId) => {
