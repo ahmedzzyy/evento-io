@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { createEvent } from "@/services/eventService";
-import withAuth from "../../components/withAuth";
+import withAuth from "@/components/withAuth";
+import styles from "@/styles/createEvent.module.css";
 
 const CreateEvent = () => {
     const [title, setTitle] = useState('');
@@ -21,7 +22,7 @@ const CreateEvent = () => {
 
         try {
             await createEvent(eventData);
-            router.push("/events");
+            router.push("/");
         } catch (err) {
             setError("Failed to create Event");
         } finally {
@@ -30,51 +31,46 @@ const CreateEvent = () => {
     }
 
     return (
-        <div className="create-event-page">
-            <h1>Create Event</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title:</label>
+        <div className={styles.container}>
+            <h1 className={styles.heading}>Create a New Event</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                    <label htmlFor="title">Event Title</label>
                     <input
                         type="text"
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        className={styles.input}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="description">Description:</label>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor="description">Event Description</label>
                     <textarea
                         id="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        className={styles.textarea}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="location">Location:</label>
-                    <input
-                        type="text"
-                        id="location"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="date">Date:</label>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor="date">Event Date</label>
                     <input
                         type="date"
                         id="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
+                        className={styles.input}
                         required
                     />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Creating...' : 'Create Event'}
+
+                <button type="submit" className={styles.submitButton}>
+                    Create Event
                 </button>
             </form>
         </div>
