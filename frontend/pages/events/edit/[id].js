@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { fetchEventById, updateEvent } from "@/services/eventService";
 import withAuth from "@/components/withAuth";
+import styles from "@/styles/createEvent.module.css"; // Create Event and Edit Event page have similar UI / UX
 
 const EditEvent = () => {
     const router = useRouter();
@@ -54,11 +55,11 @@ const EditEvent = () => {
     }
 
     return (
-        <div className="edit-event-page">
-            <h1>Edit Event</h1>
+        <div className={styles.container}>
+            <h1 className={styles.heading}>Edit Event</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
                     <label htmlFor="title">Title:</label>
                     <input
                         type="text"
@@ -66,20 +67,22 @@ const EditEvent = () => {
                         name="title"
                         value={event.title}
                         onChange={handleChange}
+                        className={styles.input}
                         required
                     />
                 </div>
-                <div>
+                <div className={styles.formGroup}>
                     <label htmlFor="description">Description:</label>
                     <textarea
                         id="description"
                         name="description"
                         value={event.description}
                         onChange={handleChange}
+                        className={styles.input}
                         required
                     />
                 </div>
-                <div>
+                <div className={styles.formGroup}>
                     <label htmlFor="location">Location:</label>
                     <input
                         type="text"
@@ -87,10 +90,11 @@ const EditEvent = () => {
                         name="location"
                         value={event.location}
                         onChange={handleChange}
+                        className={styles.input}
                         required
                     />
                 </div>
-                <div>
+                <div className={styles.formGroup}>
                     <label htmlFor="date">Date:</label>
                     <input
                         type="date"
@@ -98,10 +102,11 @@ const EditEvent = () => {
                         name="date"
                         value={event.date}
                         onChange={handleChange}
+                        className={styles.input}
                         required
                     />
                 </div>
-                <button type="submit" disabled={loading}>
+                <button type="submit" disabled={loading} className={styles.submitButton}>
                     {loading ? 'Updating...' : 'Update Event'}
                 </button>
             </form>
