@@ -90,4 +90,4 @@ const CreateEvent = () => {
 
 }
 
-export default withAuth(CreateEvent);
+export default withAuth(CreateEvent, 'organizer');
