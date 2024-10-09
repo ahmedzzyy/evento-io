@@ -5,6 +5,7 @@ import authroutes from './routes/auth.js';
 import eventRoutes from "./routes/events.js";
 import registrationRoutes from "./routes/registrations.js";
 import usersRoutes from "./routes/users.js";
+import cors from "cors";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -25,8 +26,17 @@ const connectDB = async () => {
 // Call the connectDB function to connect to MongoDB
 connectDB();
 
+// CORS
+const corsOptions = {
+  origin: process.env.FRONTEND_LOCAL_URL, // Front-end origin
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true, // If you're sending cookies or HTTP authentication
+};
+
+
 // Middleware
 app.use(express.json());
+app.use(cors(corsOptions));
 
 // Routes
 app.use('/api/auth', authroutes);
