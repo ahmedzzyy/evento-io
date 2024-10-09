@@ -58,6 +58,18 @@ const CreateEvent = () => {
                 </div>
 
                 <div className={styles.formGroup}>
+                    <label htmlFor="location">Location:</label>
+                    <input
+                        type="text"
+                        id="location"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className={styles.input}
+                        required
+                    />
+                </div>
+
+                <div className={styles.formGroup}>
                     <label htmlFor="date">Event Date</label>
                     <input
                         type="date"
@@ -68,9 +80,9 @@ const CreateEvent = () => {
                         required
                     />
                 </div>
-
-                <button type="submit" className={styles.submitButton}>
-                    Create Event
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <button type="submit" disabled={loading} className={styles.submitButton}>
+                    {loading ? 'Creating...' : 'Create Event'}
                 </button>
             </form>
         </div>
