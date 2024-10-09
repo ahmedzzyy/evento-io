@@ -34,7 +34,7 @@ const UserProfile = () => {
 
     return (
         <div className={styles.container}>
-            <h1>{user?.name}{"'"}s Profile</h1>
+            <h1>{user?.username}{"'"}s Profile</h1>
             <p>Email: {user?.email}</p>
 
             <div className={styles.profileContent}>
