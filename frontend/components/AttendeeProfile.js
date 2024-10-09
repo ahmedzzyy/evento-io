@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchRegisteredEvents, fetchPastEvents, fetchUpcomingEvents } from "@/services/userService";
 import EventCard from "@/components/EventCard";
+import styles from "@/styles/attendee.module.css";
 
 const AttendeeProfile = () => {
     const [registeredEvents, setRegisteredEvents] = useState([]);
@@ -38,17 +39,17 @@ const AttendeeProfile = () => {
     }
 
     return (
-        <div className="user-profile">
+        <div className={styles.container}>
 
             {/* View options */}
-            <div className="view-options">
-                <button onClick={() => setViewOption('upcoming')}>
+            <div className={styles.viewOptions}>
+                <button className={`${styles.viewButton} ${viewOption === 'upcoming' ? styles.active : ''}`} onClick={() => setViewOption('upcoming')}>
                     Upcoming Events
                 </button>
-                <button onClick={() => setViewOption('past')}>
+                <button className={`${styles.viewButton} ${viewOption === 'past' ? styles.active : ''}`} onClick={() => setViewOption('past')}>
                     Past Events
                 </button>
-                <button onClick={() => setViewOption('both')}>
+                <button className={`${styles.viewButton} ${viewOption === 'both' ? styles.active : ''}`} onClick={() => setViewOption('both')}>
                     All Events
                 </button>
             </div>
@@ -58,13 +59,13 @@ const AttendeeProfile = () => {
                 <>
                     <h2>Upcoming Events</h2>
                     {upcomingEvents.length > 0 ? (
-                        <>
+                        <div className={styles.eventsContainer}>
                             {upcomingEvents.map((event) => (
                                 <EventCard key={event._id} event={event} />
                             ))}
-                        </>
+                        </div>
                     ) : (
-                        <p>No upcoming events.</p>
+                        <p className={styles.noEvents}>No upcoming events.</p>
                     )}
                 </>
             )}
@@ -73,13 +74,13 @@ const AttendeeProfile = () => {
                 <>
                     <h2>Past Events</h2>
                     {pastEvents.length > 0 ? (
-                        <>
+                        <div className={styles.eventsContainer}>
                             {pastEvents.map((event) => (
                                 <EventCard key={event._id} event={event} />
                             ))}
-                        </>
+                        </div>
                     ) : (
-                        <p>No past events.</p>
+                        <p className={styles.noEvents}>No past events.</p>
                     )}
                 </>
             )}
@@ -88,13 +89,13 @@ const AttendeeProfile = () => {
                 <>
                     <h2>Registered Events</h2>
                     {registeredEvents.length > 0 ? (
-                        <>
+                        <div className={styles.eventsContainer}>
                             {registeredEvents.map((event) => (
                                 <EventCard key={event._id} event={event} />
                             ))}
-                        </>
+                        </div>
                     ) : (
-                        <p>No registered events.</p>
+                        <p className={styles.noEvents}>No registered events.</p>
                     )}
                 </>
             )}
