@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchUserProfile } from "@/services/userService";
 import AttendeeProfile from "@/components/AttendeeProfile";
 import OrganizerProfile from "@/components/OrganizerProfile";
+import styles from "@/styles/profile.module.css";
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -32,14 +33,17 @@ const UserProfile = () => {
     }
 
     return (
-        <div className='user-profile'>
+        <div className={styles.container}>
             <h1>{user?.name}{"'"}s Profile</h1>
             <p>Email: {user?.email}</p>
-            {user.role === "organizer" ? (
-                <OrganizerProfile />
-            ) : (
-                <AttendeeProfile />
-            )}
+
+            <div className={styles.profileContent}>
+                {user.role === "organizer" ? (
+                    <OrganizerProfile />
+                ) : (
+                    <AttendeeProfile />
+                )}
+            </div>
         </div>
     );
 };

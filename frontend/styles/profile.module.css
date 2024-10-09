@@ -1,0 +1,24 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.profileContent {
+    margin-top: 30px;
+}
