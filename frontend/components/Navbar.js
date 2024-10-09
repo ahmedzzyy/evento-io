@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import jwt_decode from 'jwt-decode';
+import { fetchUserProfile } from "@/services/userService.js";
 import Link from "next/link";
 import styles from "@/styles/navbar.module.css";
 
@@ -9,22 +9,27 @@ const NavBar = () => {
     const [userRole, setUserRole] = useState('');
     const router = useRouter();
 
-    // Check if the user is logged in by looking for a token in localStorage
+    // Check if the user is logged in
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        const checkAuth = async () => {
             try {
-                // Decode the token to get user information
-                const decodedUser = jwt_decode(token);
-                setUserRole(decodedUser.role); // Assuming the token has a 'role' field
-                setIsAuthenticated(true);
-            } catch (error) {
-                console.error('Invalid token', error);
+                const user = await fetchUserProfile();
+
+                // Check if user exists and has the necessary property like 'id'
+                if (!user || !user._id) {
+                    // Redirect to Login
+                    setIsAuthenticated(false);
+                } else {
+                    // Redirected to homepage if unauthorized
+                    setIsAuthenticated(true);
+                    setUserRole(user.role);
+                }
+            } catch (err) {
                 setIsAuthenticated(false);
             }
-        } else {
-            setIsAuthenticated(false);
         }
+
+        checkAuth();
     }, []);
 
     // Logout function: Remove token and redirect to login page
