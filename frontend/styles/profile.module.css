@@ -7,13 +7,13 @@
     border-radius: 10px;
 }
 
-h1 {
+.container h1 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #ffffff;
 }
 
-p {
+.container p {
     font-size: 1.2rem;
     color: #cccccc;
     margin-bottom: 20px;

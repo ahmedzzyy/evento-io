@@ -31,7 +31,7 @@
 }
 
 /* Label styling */
-label {
+.formGroup label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
