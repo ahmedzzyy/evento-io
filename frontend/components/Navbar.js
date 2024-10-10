@@ -49,14 +49,12 @@ const NavBar = () => {
                     <>
                         {userRole === 'organizer' ? (
                             <>
-                                <Link className={styles.navbarLink} href="/events/manage">Manage My Events</Link>
+                                <Link className={styles.navbarLink} href="/profile">Manage My Events</Link>
                                 <Link className={styles.navbarLink} href="/events/create">Create New Event</Link>
-                                <Link className={styles.navbarLink} href="/events/attendees">View Attendees</Link>
                             </>
                         ) : (
                             <>
-                                <Link className={styles.navbarLink} href="/profile/registered">My Registered Events</Link>
-                                <Link className={styles.navbarLink} href="/profile/past">Past Events</Link>
+                                <Link className={styles.navbarLink} href="/profile">My Events</Link>
                             </>
                         )}
                         <button onClick={handleLogout}>Logout</button>

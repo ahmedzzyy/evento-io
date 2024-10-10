@@ -35,7 +35,8 @@
 }
 
 .navbarLinks a {
-    margin-left: 1.5rem;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
     color: #e0e0e0;
     /* Light text for dark background */
     text-decoration: none;
