@@ -1,0 +1,47 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.exportBtn {
+    background-color: #0070f3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.exportBtn:hover {
+    background-color: #005bb5;
+}
+
+.attendeeTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendeeTable th,
+.attendeeTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.attendeeTable th {
+    background-color: #181818;
+}
+
+.attendeeTable select {
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

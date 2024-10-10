@@ -1,0 +1,64 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loginForm {
+    background-color: var(--form-background); /* Soft dark background */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+.loginTitle {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    /* Main theme color for titles */
+    margin-bottom: 1.5rem;
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.inputField {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-background);
+    color: var(--text-light);
+}
+
+.submitBtn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.submitBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+.errorMessage {
+    color: var(--error-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}

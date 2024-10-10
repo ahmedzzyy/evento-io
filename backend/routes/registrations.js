@@ -147,11 +147,11 @@ router.get('/:eventId/export', auth, async (req, res) => {
 
         // Find all registrations for the event
         const registrations = await Registration.find({ event: req.params.eventId })
-        .populate('attendee', 'name email');  // Populate attendee details
+        .populate('attendee', 'username email');  // Populate attendee details
 
         // Prepare data for CSV
         const attendees = registrations.map(reg => ({
-            name: reg.attendee.name,
+            username: reg.attendee.username,
             email: reg.attendee.email,
             status: reg.status,
             registeredAt: reg.registeredAt,
