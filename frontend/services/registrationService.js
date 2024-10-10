@@ -43,7 +43,7 @@ export const deleteRegistration = async (eventId) => {
 export const fetchAttendees = async (eventId) => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
-    const res = fetch(`${BASE_URL}/${eventId}/attendees`, {
+    const res = await fetch(`${BASE_URL}/${eventId}/attendees`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`  // Include the token in Authorization header
@@ -79,7 +79,7 @@ export const exportAttendeeList = async (eventId) => {
     const token = localStorage.getItem('token');
 
     const res = await fetch(`${BASE_URL}/${eventId}/export`, {
-        method: 'DELETE',
+        method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`  // Include the token in Authorization header
         }
@@ -91,7 +91,7 @@ export const exportAttendeeList = async (eventId) => {
     // Create a link element to trigger file download
     const downloadURL = window.URL.createObjectURL(blob);
     const downloadLinkElement = document.createElement('a');
-    downloadLinkElement.href = url;
+    downloadLinkElement.href = downloadURL;
     downloadLinkElement.click();
 
     // Cleaning up the URL object
