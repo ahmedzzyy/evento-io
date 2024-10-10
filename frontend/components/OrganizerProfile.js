@@ -49,7 +49,8 @@ const OrganizerProfile = () => {
                     {events.map((event) => (
                         <div key={event._id}>
                             <EventCard key={event._id} event={event} />
-                            <button onClick={() => router.push(`/events/edit/${event._id}`)}>Edit</button>
+                            <button className={styles.editButton} onClick={() => router.push(`/events/edit/${event._id}`)}>Edit</button>
+                            <button className={styles.editButton} onClick={() => router.push(`/events/attendee/${event._id}`)}>View Attendee List</button>
                         </div>
                     ))}
                 </div>
