@@ -28,7 +28,35 @@ The project uses the following technologies:
 
 ## Installation
 
-- [ ] TODO: dockerfile install
+Follow the steps below to install and run the project locally:
+
+1. **Clone the repository**:
+```bash
+git clone https://github.com/ahmedzzyy/evento-io.git
+```
+2. **Navigate to the project directory**
+```bash
+cd evento-io
+```
+3. **Set up environment variables**
+- Create a `.env` file in both `/frontend` and `/backend` directories (or in the root if using shared `.env`).
+- Add the required variables such as `JWT_SECRET`, `MONGO_URI`, and `BASE_URL`.
+4. **Run Docker Compose**
+```bash
+docker compose up --build
+```
+5. **Access the application**
+- The frontend will be running on `http://localhost:3000`.
+- The backend API will be accessible on `http://localhost:5500`.
+
+## Sneak Peek
+
+<details>
+<summary>Images</summary>
+<img src="./screenshots/HomePage.png">
+<img src="./screenshots/SignUp.png">
+<img src="./screenshots/NewEvent.png">
+</details>
 
 ## Features
 
