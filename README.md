@@ -41,9 +41,19 @@ cd evento-io
 3. **Set up environment variables**
 - Create a `.env` file in both `/frontend` and `/backend` directories (or in the root if using shared `.env`).
 - Add the required variables such as `JWT_SECRET`, `MONGO_URI`, and `BASE_URL`.
-4. **Run Docker Compose**
+4. **Run Docker Compose** or **Run Locally**
 ```bash
 docker compose up --build
+```
+- NodeJS server
+>Start the server
+```bash
+cd backend && node index.js
+```
+>Build & Start the next app in another terminal session.
+```bash
+cd frontend && npm run build
+npm run start
 ```
 5. **Access the application**
 - The frontend will be running on `http://localhost:3000`.
