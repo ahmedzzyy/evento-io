@@ -1,7 +1,9 @@
+import { EventData, FilterParams, IEvent, PaginatedEventsResponse } from "@/types";
+
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/events`;
 
 // Create a new event (Authenticated users only)
-export const createEvent = async (eventData) => {
+export const createEvent = async (eventData: EventData): Promise<IEvent> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(BASE_URL, {
@@ -22,7 +24,7 @@ export const createEvent = async (eventData) => {
 };
 
 // Fetch all events by a particular organizer (user itself)
-export const fetchEventByOrganizer = async () => {
+export const fetchEventByOrganizer = async (): Promise<IEvent> => {
     const token = localStorage.getItem('token');
 
     const res = await fetch(`${BASE_URL}/organizer`, {
@@ -32,7 +34,7 @@ export const fetchEventByOrganizer = async () => {
             'Authorization': `Bearer ${token}`  // Include the token in Authorization header
         },
     });
-    
+
     if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.message || 'Failed to create event');
@@ -42,7 +44,7 @@ export const fetchEventByOrganizer = async () => {
 }
 
 // Fetch all events (unfiltered)
-export const fetchAllEvents = async () => {
+export const fetchAllEvents = async (): Promise<IEvent[]> => {
     const res = await fetch(`${BASE_URL}`);
     if (!res.ok) {
         throw new Error('Failed to fetch events');
@@ -51,7 +53,7 @@ export const fetchAllEvents = async () => {
 };
 
 // Fetch a specific event by ID
-export const fetchEventById = async (eventId) => {
+export const fetchEventById = async (eventId: string): Promise<IEvent | { msg: string }> => {
     const res = await fetch(`${BASE_URL}/${eventId}`);
     if (!res.ok) {
         throw new Error(`Failed to fetch event with ID: ${eventId}`);
@@ -60,11 +62,15 @@ export const fetchEventById = async (eventId) => {
 };
 
 // Fetch paginated events (with optional keyword, page, and limit in the query)
-export const searchEvents = async (keyword = '', page = 1, limit = 10) => {
+export const searchEvents = async (
+    keyword: string = '',
+    page: number = 1,
+    limit: number = 10
+): Promise<PaginatedEventsResponse> => {
     const query = new URLSearchParams({
         keyword,
-        page,
-        limit,
+        page: page.toString(),
+        limit: limit.toString(),
     }).toString();
 
     const res = await fetch(`${BASE_URL}/search?${query}`);
@@ -75,7 +81,9 @@ export const searchEvents = async (keyword = '', page = 1, limit = 10) => {
 };
 
 // Fetch filtered events (with optional dateFrom, dateTo, location, and type in the query)
-export const filterEvents = async ({ dateFrom, dateTo, location, type }) => {
+export const filterEvents = async (
+    { dateFrom, dateTo, location, type }: FilterParams
+): Promise<IEvent[]> => {
     const query = new URLSearchParams({
         dateFrom: dateFrom || '',
         dateTo: dateTo || '',
@@ -91,7 +99,9 @@ export const filterEvents = async ({ dateFrom, dateTo, location, type }) => {
 };
 
 // Update an event (Authenticated users only)
-export const updateEvent = async (eventId, updatedEventData) => {
+export const updateEvent = async (
+    eventId: string, updatedEventData: Partial<EventData>
+): Promise<IEvent | { msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/${eventId}`, {
@@ -112,7 +122,7 @@ export const updateEvent = async (eventId, updatedEventData) => {
 };
 
 // Delete an event (Authenticated users only)
-export const deleteEvent = async (eventId) => {
+export const deleteEvent = async (eventId: string): Promise<{ msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/${eventId}`, {

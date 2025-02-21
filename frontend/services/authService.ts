@@ -1,7 +1,11 @@
+import { RegisterUser } from "@/types";
+
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/auth`;
 
 // Signup a new user
-export const signupUser = async (userData) => {
+export const signupUser = async (
+    userData: RegisterUser
+): Promise<{ token: string }> => {
     const res = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
         headers: {
@@ -19,7 +23,9 @@ export const signupUser = async (userData) => {
 };
 
 // Login an existing user
-export const loginUser = async (credentials) => {
+export const loginUser = async (
+    credentials: { email: string; password: string; }
+): Promise<{ token: string } | { msg: string }> => {
     const res = await fetch(`${BASE_URL}/login`, {
         method: 'POST',
         headers: {
@@ -37,6 +43,6 @@ export const loginUser = async (credentials) => {
 };
 
 // Logout a user (Clear token on client-side)
-export const logoutUser = () => {
+export const logoutUser = (): void => {
     localStorage.removeItem('token');  // Remove token from localStorage
 };

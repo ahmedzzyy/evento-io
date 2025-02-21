@@ -1,7 +1,11 @@
+import { IRegistration } from "@/types";
+
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/registrations`;
 
 // Register for an event (Authenticated users only)
-export const createRegistration = async (eventId) => {
+export const createRegistration = async (
+    eventId: string
+): Promise<{ msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/${eventId}`, {
@@ -21,7 +25,9 @@ export const createRegistration = async (eventId) => {
 }
 
 // De-Register for an event (Authenticated users only)
-export const deleteRegistration = async (eventId) => {
+export const deleteRegistration = async (
+    eventId: string
+): Promise<{ msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/${eventId}`, {
@@ -40,7 +46,9 @@ export const deleteRegistration = async (eventId) => {
 }
 
 // Attendees for an event (Authenticated users only)
-export const fetchAttendees = async (eventId) => {
+export const fetchAttendees = async (
+    eventId: string
+): Promise<IRegistration[]> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/${eventId}/attendees`, {
@@ -54,7 +62,9 @@ export const fetchAttendees = async (eventId) => {
 }
 
 // Mark attendee as present or absent (Authenticated organizers only)
-export const updateAttendees = async (eventId, userId, updatedStatus) => {
+export const updateAttendees = async (
+    eventId: string, userId: string, updatedStatus: "present" | "absent"
+): Promise<{ msg: string }> => {
     const token = localStorage.getItem('token');
 
     const res = await fetch(`${BASE_URL}/${eventId}/attendees/${userId}`, {
@@ -75,7 +85,9 @@ export const updateAttendees = async (eventId, userId, updatedStatus) => {
 }
 
 // Attendee List CSV file for an event (Authenticated organizers only)
-export const exportAttendeeList = async (eventId) => {
+export const exportAttendeeList = async (
+    eventId: string
+): Promise<void> => {
     const token = localStorage.getItem('token');
 
     const res = await fetch(`${BASE_URL}/${eventId}/export`, {

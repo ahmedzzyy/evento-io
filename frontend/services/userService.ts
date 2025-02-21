@@ -1,7 +1,9 @@
+import { CommonUser, IEvent } from "@/types";
+
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/users`;
 
 // Fetch user's profile (Authenticated users only)
-export const fetchUserProfile = async () => {
+export const fetchUserProfile = async (): Promise<CommonUser | { msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/me`, {
@@ -20,7 +22,7 @@ export const fetchUserProfile = async () => {
 }
 
 // Update user's profile (Authenticated users only)
-export const updateUser = async (updatedUserData) => {
+export const updateUser = async (updatedUserData: unknown) => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/me`, {
@@ -41,7 +43,7 @@ export const updateUser = async (updatedUserData) => {
 }
 
 // Fetch user's registered events (Authenticated users only)
-export const fetchRegisteredEvents = async () => {
+export const fetchRegisteredEvents = async (): Promise<IEvent | { msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/me/registered-events`, {
@@ -60,7 +62,7 @@ export const fetchRegisteredEvents = async () => {
 }
 
 // Fetch user's past events (Authenticated users only)
-export const fetchPastEvents = async () => {
+export const fetchPastEvents = async (): Promise<IEvent | { msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/me/past-events`, {
@@ -79,7 +81,7 @@ export const fetchPastEvents = async () => {
 }
 
 // Fetch user's upcoming events (Authenticated users only)
-export const fetchUpcomingEvents = async () => {
+export const fetchUpcomingEvents = async (): Promise<IEvent | { msg: string }> => {
     const token = localStorage.getItem('token');  // Get JWT token from local storage
 
     const res = await fetch(`${BASE_URL}/me/upcoming-events`, {
