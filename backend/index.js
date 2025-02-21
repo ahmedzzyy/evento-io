@@ -24,7 +24,7 @@ const connectDB = async () => {
 };
 
 // Call the connectDB function to connect to MongoDB
-connectDB();
+await connectDB();
 
 // CORS
 const corsOptions = {
