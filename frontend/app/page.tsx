@@ -15,7 +15,7 @@ export default function Home() {
             </Link>
             <MobileNav />
           </div>
-          <nav className="hidden sm:flex space-x-4">
+          <nav className="hidden sm:flex items-center space-x-4">
             <Link href="#" className="text-gray-600 hover:text-salmon-600">
               Browse Events
             </Link>
@@ -113,11 +113,11 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-salmon-600 py-12 sm:py-20">
+        <section className="bg-salmon-100 py-12 sm:py-20">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Host Your Next Event?</h2>
-            <p className="text-lg sm:text-xl text-white mb-8">Join thousands of successful event organizers on Evento.io</p>
-            <Button className="bg-white text-salmon-600 hover:bg-gray-100 text-lg px-8 py-3 w-full sm:w-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-salmon-800 mb-4">Ready to Host Your Next Event?</h2>
+            <p className="text-lg sm:text-xl text-salmon-700 mb-8">Join thousands of successful event organizers on Evento.io</p>
+            <Button className="bg-salmon-600 text-white hover:bg-salmon-700 text-lg px-8 py-3 w-full sm:w-auto">
               Get Started for Free
             </Button>
           </div>
