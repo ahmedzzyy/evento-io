@@ -14,11 +14,11 @@ export default function MobileNav() {
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
       </Button>
       {isOpen && (
-        <nav className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center space-y-4 py-4">
-          <Link href="#" className="text-gray-600 hover:text-salmon-600">
+        <nav className="absolute top-16 left-0 w-full bg-white dark:bg-gray-800 dark:shadow-gray-700 shadow-md flex flex-col items-center space-y-4 py-4">
+          <Link href="#" className="text-gray-600 hover:text-salmon-600 dark:text-gray-300 dark:hover:text-salmon-400">
             Browse Events
           </Link>
-          <Link href="#" className="text-gray-600 hover:text-salmon-600">
+          <Link href="#" className="text-gray-600 hover:text-salmon-600 dark:text-gray-300 dark:hover:text-salmon-400">
             Create Event
           </Link>
           <Link href="#" className="text-gray-600 hover:text-salmon-600">
