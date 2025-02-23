@@ -10,7 +10,7 @@ export default function Home() {
       <header className="bg-white border-b">
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center">
           <div className="flex justify-between items-center w-full sm:w-auto mb-4 sm:mb-0">
-            <Link href="/" className="text-2xl font-bold text-salmon-600">
+            <Link href="/" className="text-2xl font-bold text-salmon-600 tracking-tight">
               Evento.io
             </Link>
             <MobileNav />

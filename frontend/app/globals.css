@@ -19,6 +19,7 @@
 @layer base {
   body {
     @apply text-gray-900 bg-white;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
   :root {
     --background: 0 0% 100%;
