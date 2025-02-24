@@ -26,10 +26,12 @@ export default function Home() {
             <Link href="#" className="text-gray-600 hover:text-salmon-600 dark:text-gray-300 dark:hover:text-salmon-400">
               Create Event
             </Link>
-            <Link href="#" className="text-gray-600 hover:text-salmon-600 dark:text-gray-300 dark:hover:text-salmon-400">
+            <Link href="/login" className="text-gray-600 hover:text-salmon-600 dark:text-gray-300 dark:hover:text-salmon-400">
               Login
             </Link>
-            <Button className="bg-gradient-to-r from-salmon-500 to-salmon-600 hover:from-salmon-600 hover:to-salmon-700 text-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">Sign Up</Button>
+            <Button className="bg-gradient-to-r from-salmon-500 to-salmon-600 hover:from-salmon-600 hover:to-salmon-700 text-white shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+              <Link href="/signup">Sign Up</Link>
+            </Button>
           </nav>
         </div>
       </header>
