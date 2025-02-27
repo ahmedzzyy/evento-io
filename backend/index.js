@@ -1,11 +1,13 @@
 import express from 'express';
 import { connect } from 'mongoose';
 import dotenv from 'dotenv';
+import cors from "cors";
+
 import authroutes from './routes/auth.js';
 import eventRoutes from "./routes/events.js";
 import registrationRoutes from "./routes/registrations.js";
 import usersRoutes from "./routes/users.js";
-import cors from "cors";
+import morgan from 'morgan';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -37,6 +39,8 @@ const corsOptions = {
 // Middleware
 app.use(express.json());
 app.use(cors(corsOptions));
+
+app.use(morgan("dev"));
 
 // Routes
 app.use('/api/auth', authroutes);
