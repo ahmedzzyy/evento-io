@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -11,17 +11,18 @@ import { Button } from "@/components/ui/button";
 import { loginUser } from "@/services/authService";
 
 export default function LoginPage() {
-    useEffect(() => {
-        if (localStorage.getItem("token")) {
-            redirect("/")
-            // TODO Redirect to profile page
-        }
-    }, []);
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const router = useRouter();
+
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            router.push("/");
+            // TODO Redirect to profile page
+        }
+    }, [router]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
