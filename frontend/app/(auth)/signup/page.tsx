@@ -1,77 +1,44 @@
 "use client"
 
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { signupUser } from "@/services/authService";
+import { signupAction } from "@/app/actions/auth";
 
 export default function SignupPage() {
-    useEffect(() => {
-        if (localStorage.getItem("token")) {
-            redirect("/")
-            // TODO Redirect to profile page
-        }
-    }, []);
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [role, setRole] = useState<"attendee" | "organizer" | null>(null);
-
-    const router = useRouter();
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        try {
-            if (!role) {
-                // TODO Better Error Handling
-                return;
-            }
-
-            await signupUser({ username: name, email, password, role });
-
-            router.push("/");
-        } catch (error) {
-            console.error('Error signing up:', error);
-            // TODO Better Error Handling
-        }
-    }
+    const [state, action, pending] = useActionState(signupAction, { errors: {} });
 
     return (
         <main className="flex-grow flex items-center justify-center px-4">
             <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Sign Up</h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form action={action} className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="name">Name</Label>
-                        <Input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <Input id="name" type="text" name="name" required />
                     </div>
+                    {state?.errors?.username && <p className="text-red-500 text-sm">{state.errors.username[0]}</p>}
+
                     <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <Input id="email" type="email" name="email" required />
                     </div>
+                    {state?.errors?.email && <p className="text-red-500 text-sm">{state.errors.email[0]}</p>}
+
                     <div className="space-y-2">
                         <Label htmlFor="password">Password</Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <Input id="password" type="password" name="password" required />
                     </div>
+                    {state?.errors?.password && (<p className="text-red-500 text-sm">{state.errors.password[0]}</p>)}
+
                     <div className="space-y-2">
                         <Label htmlFor="role">Role</Label>
-                        <Select onValueChange={(value: string) =>
-                            setRole(value as "attendee" | "organizer")
-                        } required>
+                        <Select name="role" required>
                             <SelectTrigger>
                                 <SelectValue placeholder="Select a role" />
                             </SelectTrigger>
@@ -80,9 +47,10 @@ export default function SignupPage() {
                                 <SelectItem value="organizer">Organizer</SelectItem>
                             </SelectContent>
                         </Select>
+                        {state?.errors?.role && <p className="text-red-500 text-sm">{state.errors.role[0]}</p>}
                     </div>
-                    <Button type="submit" className="w-full bg-salmon-600 hover:bg-salmon-700 text-white">
-                        Sign Up
+                    <Button disabled={pending} type="submit" className="w-full bg-salmon-600 hover:bg-salmon-700 text-white">
+                        {pending ? "Signing up..." : "Sign Up"}
                     </Button>
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
