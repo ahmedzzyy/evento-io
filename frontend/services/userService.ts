@@ -15,7 +15,7 @@ export const fetchUserProfile = async (): Promise<CommonUser | { msg: string }> 
 
     if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || 'Failed to get user profile');
+        throw new Error(errorData.msg || 'Failed to get user profile');
     }
 
     return res.json();
