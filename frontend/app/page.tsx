@@ -1,9 +1,6 @@
-import Link from "next/link"
 import { Calendar, Ticket, Users, TrendingUp } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import MobileNav from "@/components/MobileNav"
-import { ThemeToggle } from "@/components/theme-toggle"
 import Navbar from "@/components/navbar"
 
 export default function Home() {
