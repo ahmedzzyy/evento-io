@@ -36,7 +36,6 @@ export default function LoginPage() {
             router.push("/");
         } catch (error) {
             console.error('Error logging in:', error);
-            // TODO Better Error Handling
         }
     }
 
